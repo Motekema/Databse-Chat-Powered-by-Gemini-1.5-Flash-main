@@ -8,8 +8,10 @@ import Header from "./Dashboard/header";
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-console.log("PUBLISHABLE_KEY:", PUBLISHABLE_KEY); // Add this line to check the value
+console.log("PUBLISHABLE_KEY (main.jsx):", PUBLISHABLE_KEY); // Add this line to check the value
+console.log("API_BASE_URL (main.jsx):", API_BASE_URL); // Add this line to check the value
 
 if (!PUBLISHABLE_KEY) {
   throw new Error(
