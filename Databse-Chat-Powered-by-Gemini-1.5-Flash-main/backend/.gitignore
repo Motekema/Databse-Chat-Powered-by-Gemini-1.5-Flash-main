@@ -62,3 +62,4 @@ Thumbs.db
 # parcel-bundler cache
 .cache
 .parcel-cache
+.vercel
