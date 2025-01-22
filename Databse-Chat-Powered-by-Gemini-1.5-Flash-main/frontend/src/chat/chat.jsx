@@ -1,30 +1,29 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Send } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-//const apiUrlG = import.meta.env.VITE_API_BASE_URL;
 
 const LoadingIndicator = () => (
-  <div className="flex items-center space-x-2 text-gray-500">
+  <div className="flex items-center space-x-2 text-blue-500">
     <div
-      className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
+      className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
       style={{ animationDelay: "0ms" }}
     />
     <div
-      className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
+      className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
       style={{ animationDelay: "150ms" }}
     />
     <div
-      className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
+      className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
       style={{ animationDelay: "300ms" }}
     />
-    <span className="ml-2 text-sm">Thinking...</span>
+    <span className="ml-2 text-sm font-medium">Thinking...</span>
   </div>
 );
 
 const ChatMessage = ({ message, isUser, isLoading }) => {
   const messageClass = isUser
-    ? "bg-black text-white rounded-br-none"
-    : "bg-gray-100 text-black rounded-bl-none";
+    ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-br-none"
+    : "bg-gradient-to-r from-gray-200 to-gray-300 text-black rounded-bl-none";
 
   return (
     <div className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4`}>
@@ -63,7 +62,7 @@ const ChatMessage = ({ message, isUser, isLoading }) => {
 const DatasetChatbot = () => {
   const [messages, setMessages] = useState([
     {
-      text: "Hi! I can analyze data for you. Ask me anything about!",
+      text: "Hi! I can analyze data for you. Ask me anything about it!",
       isUser: false,
     },
   ]);
@@ -88,8 +87,6 @@ const DatasetChatbot = () => {
 
     try {
       const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-      console.log("API Base URL:", apiBaseUrl);
-
       const response = await fetch(`${apiBaseUrl}/api/ask`, {
         method: "POST",
         headers: {
@@ -119,12 +116,13 @@ const DatasetChatbot = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg shadow-lg">
-      <h1 className="text-2xl font-bold mb-4 text-center">Dataset Chatbot</h1>
-      <div className="h-[500px] overflow-y-auto mb-6 space-y-4 pr-4 bg-white rounded-lg p-4 shadow-inner">
+    <div className="max-w-2xl mx-auto p-6 bg-gradient-to-b from-blue-100 to-blue-200 rounded-lg shadow-lg">
+      <h1 className="text-2xl font-bold mb-4 text-center text-blue-700">
+        Dataset Chatbot
+      </h1>
+      <div className="h-[500px] overflow-y-auto mb-6 space-y-4 bg-white rounded-lg p-4 shadow-inner">
         {messages.map((message, index) => (
           <ChatMessage
-            className="text-neutral-800 font-thin"
             key={index}
             message={message.text}
             isUser={message.isUser}
@@ -135,18 +133,13 @@ const DatasetChatbot = () => {
         )}
         <div ref={messagesEndRef} />
       </div>
-
       <div className="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-3">
-        <label htmlFor="chat-input" className="sr-only">
-          Type your message
-        </label>
         <input
-          id="chat-input"
           type="text"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           onKeyPress={(e) => e.key === "Enter" && handleSend(inputText)}
-          placeholder="Ask about our anything..."
+          placeholder="Ask anything about your data..."
           className="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
@@ -155,7 +148,6 @@ const DatasetChatbot = () => {
           className={`p-3 rounded-lg bg-blue-600 text-white transition-colors ${
             isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
           }`}
-          aria-label="Send message"
         >
           <Send className="w-5 h-5" />
         </button>
