@@ -1,12 +1,14 @@
 import express from "express";
 import pkg from "pg"; // Import the default export from 'pg'
 import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config(); // Load environment variables from .env file
 
 const { Pool } = pkg; // Destructure 'Pool' from the CommonJS default export
 
 // PostgreSQL connection string
-const connectionString =
-  "postgresql://Demo_Chat_owner:npg_5BAdiW3VRwHF@ep-square-mode-a8dlyv6n.eastus2.azure.neon.tech/Demo_Chat?sslmode=require";
+const connectionString = process.env.DATABASE_URL;
 
 // Initialize PostgreSQL connection pool
 const pool = new Pool({
